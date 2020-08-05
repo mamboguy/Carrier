@@ -1,8 +1,8 @@
 package Model.Ships;
 
-import Model.Ships.DamageModels.BasicDamageModel;
-import Model.Ships.DamageModels.CarrierDamageModel;
-import Model.Ships.DamageModels.NonCarrierDamageModel;
+import Model.Ships.DamageAndRepairModels.BasicDamageModel;
+import Model.Ships.DamageAndRepairModels.CarrierDamageModel;
+import Model.Ships.DamageAndRepairModels.NonCarrierDamageModel;
 
 /**
  Created on 02 Aug 2020
