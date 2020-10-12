@@ -1,6 +1,6 @@
 package Model.Ships.DamageAndRepairModels;
 
-import Controller.GameMaster.Die;
+import Controller.Die;
 import Model.Ships.DamageAndRepairModels.CarrierDamageModels.*;
 import Model.Ships.DamageAndRepairModels.CarrierRepairModels.*;
 

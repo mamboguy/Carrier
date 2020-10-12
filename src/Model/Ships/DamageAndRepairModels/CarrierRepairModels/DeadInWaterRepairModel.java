@@ -5,6 +5,8 @@ package Model.Ships.DamageAndRepairModels.CarrierRepairModels;
 
  @Author - Mambo */
 
+// TODO: 2020-10-11 Add in allow scuttling (19.3 last section)
+
 public class DeadInWaterRepairModel
 		extends BasicDamageRepairModel
 		implements ICarrierRepairModel {
@@ -37,11 +39,11 @@ public class DeadInWaterRepairModel
 
 	@Override
 	boolean rollOnCriticalChart(int dieRoll) {
-		return false;
+		return dieRoll == 1;
 	}
 
 	@Override
 	boolean causedIrreparableHullDamage(int dieRoll) {
-		return false;
+		return dieRoll == 1;
 	}
 }

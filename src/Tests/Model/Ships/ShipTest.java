@@ -1,5 +1,3 @@
-package Tests.Model.Ships;
-
 import Model.Ships.Ship;
 import Model.Ships.Ship_Type;
 import org.junit.jupiter.api.BeforeEach;

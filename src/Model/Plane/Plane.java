@@ -1,5 +1,8 @@
 package Model.Plane;
 
+import Model.Plane.MovementModels.IPlaneMoveModel;
+import Model.Plane.MovementModels.StandardMovement;
+
 /**
  Created on 04 Aug 2020
 
@@ -15,18 +18,19 @@ public class Plane {
 	private int currentTimeAloft;
 
 	//Movement stats
-	private Object moveModel;
+	private IPlaneMoveModel moveModel;
 
 	//Attribute stats
 	private PlaneType planeType;
-	private BasingType basingType; //Land vs Sea
+	//private BasingType basingType; //Land vs Sea
 
-	public Plane(PlaneType planeType, BasingType basingType) {
+	public Plane(PlaneType planeType/*, BasingType basingType*/) {
 		this.isAloft = false;
 		this.isCombatReady = false;
 
 		this.planeType = planeType;
-		this.basingType = basingType;
+		this.moveModel = new StandardMovement();
+		//this.basingType = basingType;
 	}
 
 	public boolean allowCAP() {
@@ -37,7 +41,9 @@ public class Plane {
 		return planeType.getCapContribution();
 	}
 
+	/*
 	public boolean isBasingType(BasingType type) {
 		return basingType == type;
 	}
+	 */
 }
