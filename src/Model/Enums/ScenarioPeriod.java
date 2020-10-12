@@ -7,16 +7,10 @@ package Model.Enums;
  @author Mamboguy */
 public enum ScenarioPeriod {
 
-	Jan_July_42(0, "Jan-Jul '42", ScenarioPeriod.EARLY_WAR_AA, "Early War", -1, -1), Aug_Sept_42(1, "Aug-Sept '42",
-																								 ScenarioPeriod.STANDARD_AA,
-																								 "Standard", 0,
-																								 0), Oct_Dec_42(2,
-																												"Oct-Dec '42",
-																												ScenarioPeriod.IMPROVED_AA,
-																												"Improved",
-																												1,
-																												1), Year_1943(
-			3, "1943", ScenarioPeriod.IMPROVED_AA, "Improved", 1, 1);
+	Jan_July_42(0, "Jan-Jul '42", ScenarioPeriod.EARLY_WAR_AA, "Early War", -1, -1),
+	Aug_Sept_42(1, "Aug-Sept '42", ScenarioPeriod.STANDARD_AA, "Standard", 0, 0),
+	Oct_Dec_42(2, "Oct-Dec '42", ScenarioPeriod.IMPROVED_AA, "Improved", 1, 1),
+	Year_1943(3, "1943", ScenarioPeriod.IMPROVED_AA, "Improved", 1, 1);
 
 	private static final int EARLY_WAR_AA = -1;
 	private static final int STANDARD_AA = 0;
