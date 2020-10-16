@@ -1,7 +1,6 @@
 package Model.Settings;
 
 import Controller.Die;
-import Controller.GameMaster.GameSettings;
 import Model.Enums.ScenarioPeriod;
 
 import javax.swing.*;
@@ -21,6 +20,8 @@ public class JapaneseCommitmentAndUSForces {
 	private int usSurfacePoints;
 	private boolean strategicSurprise;
 
+	private ScenarioPeriod scenarioPeriod;
+
 	public JapaneseCommitmentAndUSForces(ScenarioPeriod scenario, boolean hasSecondary){
 
 		Die die = new Die(10);
@@ -28,20 +29,22 @@ public class JapaneseCommitmentAndUSForces {
 
 		int[] values = null;
 
+		this.scenarioPeriod = scenario;
+
 		switch (scenario){
 			case Jan_July_42:
 				if (hasSecondary){
-					values = janJul42_OneObjective(die.getLastRoll());
-				} else {
 					values = janJul42_TwoObjective(die.getLastRoll());
+				} else {
+					values = janJul42_OneObjective(die.getLastRoll());
 				}
 				break;
 			case Aug_Sept_42:
 			case Oct_Dec_42:
 				if (hasSecondary){
-					values = augDec42_OneObjective(die.getLastRoll());
-				} else {
 					values = augDec42_TwoObjective(die.getLastRoll());
+				} else {
+					values = augDec42_OneObjective(die.getLastRoll());
 				}
 				break;
 			case Year_1943:
@@ -57,6 +60,8 @@ public class JapaneseCommitmentAndUSForces {
 		usCarrierCount = values[4];
 		usSurfacePoints = values[5];
 		strategicSurprise = (values[6] == 1);
+
+		printSettings(die.getLastRoll());
 	}
 
 	private int[] janJul42_OneObjective(int lastRoll) {
@@ -204,27 +209,41 @@ public class JapaneseCommitmentAndUSForces {
 			stratOpt2 = "Y";
 		}
 
+
 		String message =
-				"The scenario you rolled allows you to choose your start.  Review the options below and select one:" +
-				"Scenario Timeframe - " + GameSettings.instance().getScenarioPeriod().getTimeframe() +
-				"\n" +
-				"Japanese Commitment Limits" +
+				"The scenario you rolled allows you to choose your start.  Review the options below and select one:\n\n" +
+				"Scenario Timeframe - " + scenarioPeriod.getTimeframe() +
+				"\n\n" +
+				"Japanese Commitment Limits\n" +
 				"Carrier - " + carrier + " / Surface - " + surface + " / Transport - " + transport + " / Retirement " + retirement +
-				"\n" +
-				"\t\t\tOption 1\t\t\t\tOption 2" +
-				"CV Count\t" + usCV_Opt1 + "\t\t\t\t" + usCV_Opt2 +
-				"Surf Pts\t" + usSurf_Opt1 + "\t\t\t\t" + usSurf_Opt2 +
-				"Surprise?\t" + stratOpt1 + "\t\t\t\t" + stratOpt2;
+				"\n\n" +
+				"                      Option 1          Option 2\n" +
+				"CV Count:          " + usCV_Opt1 + "                       " + usCV_Opt2 + "\n" +
+				"Surf Pts:          " + usSurf_Opt1 + "                     " + usSurf_Opt2 + "\n" +
+				"Surprise?         " + stratOpt1 + "                       " + stratOpt2;
+
+		System.out.println(message);
 
 		String[] options = {"Option 1", "Option 2"};
 
 		int response = JOptionPane.showOptionDialog(null, message, "User Choice", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
 		if (response == 1){
-			return new int[] {carrier, surface, transport, retirement, usCV_Opt1, usSurf_Opt1, stratSur_Opt1};
-		} else {
 			return new int[] {carrier, surface, transport, retirement, usCV_Opt2, usSurf_Opt2, stratSur_Opt2};
+		} else {
+			return new int[] {carrier, surface, transport, retirement, usCV_Opt1, usSurf_Opt1, stratSur_Opt1};
 		}
+	}
+
+	private void printSettings(int dieRoll){
+		System.out.println("Die roll - " + dieRoll);
+		System.out.println("Carrier Limit - " + japaneseCarrierLimit);
+		System.out.println("Surface Limit - " + japaneseSurfaceLimit);
+		System.out.println("Transport Limit - " + japaneseTransportLimit);
+		System.out.println("Retirement Limit - " + japaneseRetirementLimit);
+		System.out.println("US Carrier Count - " + usCarrierCount);
+		System.out.println("US Surface Points - " + usSurfacePoints);
+		System.out.println("Strategic Surprise? - " + strategicSurprise);
 	}
 
 	public int getJapaneseCarrierLimit() {

@@ -21,6 +21,7 @@ public class JapaneseObjective {
 
 	public JapaneseObjective(ScenarioPeriod period){
 
+		primaryObjective = null;
 		secondaryObjective = null;
 		combatPrimary = 20;
 		combatSecondary = 0;
@@ -34,13 +35,39 @@ public class JapaneseObjective {
 		switch (period){
 			case Jan_July_42:
 				janJul42(die.getLastRoll());
+				break;
 			case Aug_Sept_42:
 				augSept42(die.getLastRoll());
+				break;
 			case Oct_Dec_42:
 				octDec42(die.getLastRoll());
+				break;
 			case Year_1943:
 				year1943(die.getLastRoll());
+				break;
 		}
+
+		printSettings(die.getLastRoll());
+	}
+
+	private void printSettings(int dieRoll){
+		System.out.println("Die roll = " + dieRoll + "\n" + toString());
+	}
+
+	@Override
+	public String toString() {
+
+		String secondary = "";
+
+		if (hasSecondaryObjective()){
+			secondary = "Secondary Obj: " + secondaryObjective.getName() + "\n" +
+					"Combat Power: " + getCombatSecondary() + "  -  Transport Power: " + getTransportSecondary();
+		}
+
+		String primary = "Primary Obj: " + primaryObjective.getName() + "\n" +
+				"Combat Power: " + getCombatPrimary() + "  -  Transport Power: " + getTransportPrimary();
+
+		return primary + "\n" + secondary + "\n" + "Interdiction?: " + isInterdiction + "\n";
 	}
 
 	private void janJul42(int lastRoll) {

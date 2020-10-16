@@ -77,5 +77,7 @@ public class GameSettings {
                 scenario = ScenarioPeriod.Year_1943;
                 break;
         }
+
+        System.out.println("Period - " + scenario.getTimeframe() + "(" + lastRoll + ")\n");
     }
 }
