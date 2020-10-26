@@ -1,5 +1,7 @@
 package Model.Settings;
 
+import Controller.GameMaster.GameSettings;
+
 /**
  Created on 12 Oct 2020
 
@@ -49,5 +51,11 @@ public class JapaneseIndexes {
 
 	public void addRetirementIndex(int retirementIndex) {
 		this.retirementIndex += retirementIndex;
+	}
+
+	public boolean isCarrierCommitWithinXOfLimit(int i) {
+		int commitLimit = GameSettings.instance().getCommitments().getJapaneseCarrierLimit();
+
+		return ((commitLimit - this.carrierIndex) <= i);
 	}
 }

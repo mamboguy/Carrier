@@ -5,6 +5,7 @@ import Model.Enums.ScenarioPeriod;
 import Model.Settings.JapaneseCommitmentAndUSForces;
 import Model.Settings.JapaneseIndexes;
 import Model.Settings.JapaneseObjective;
+import Model.Settings.LandAirValues;
 
 public class GameSettings {
 
@@ -24,6 +25,7 @@ public class GameSettings {
         //Generate commitments
         commitments = new JapaneseCommitmentAndUSForces(scenario, japaneseObjective.hasSecondaryObjective());
         indexes = new JapaneseIndexes();
+        rabaulAirValue = new LandAirValues(scenario);
     }
 
     public static GameSettings instance() {
@@ -39,6 +41,7 @@ public class GameSettings {
     private JapaneseObjective japaneseObjective;
     private JapaneseCommitmentAndUSForces commitments;
     private JapaneseIndexes indexes;
+    private LandAirValues rabaulAirValue;
 
     public JapaneseCommitmentAndUSForces getCommitments() {
         return commitments;

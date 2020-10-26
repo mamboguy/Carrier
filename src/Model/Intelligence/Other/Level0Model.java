@@ -1,6 +1,7 @@
 package Model.Intelligence.Other;
 
 import Model.Intelligence.IIntelligence;
+import Model.Intelligence.IntelLevel;
 import Model.Intelligence.Intelligence;
 
 /**
@@ -12,8 +13,8 @@ public class Level0Model
 		extends Intelligence {
 
 	@Override
-	public int intelligenceLevel() {
-		return 0;
+	public IntelLevel intelligenceLevel() {
+		return IntelLevel.Level0;
 	}
 
 	@Override

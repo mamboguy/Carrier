@@ -10,27 +10,31 @@ import Model.Plane.MovementModels.StandardMovement;
 
 public class Plane {
 
-	//Combat stats
-	private boolean isCombatReady;
-
-	//Endurance stats
-	private boolean isAloft;
-	private int currentTimeAloft;
+	//Class variables
+	private static int planeID = 0;
+	private int ID;
 
 	//Movement stats
 	private IPlaneMoveModel moveModel;
 
 	//Attribute stats
 	private PlaneType planeType;
-	//private BasingType basingType; //Land vs Sea
+	private boolean combatReady;
 
-	public Plane(PlaneType planeType/*, BasingType basingType*/) {
-		this.isAloft = false;
-		this.isCombatReady = false;
 
+	public Plane(PlaneType planeType) {
+		this.ID = planeID++;
 		this.planeType = planeType;
 		this.moveModel = new StandardMovement();
-		//this.basingType = basingType;
+		this.combatReady = false;
+	}
+
+	public void setCombatReady(){
+		this.combatReady = true;
+	}
+
+	public void unsetCombatReady(){
+		this.combatReady = false;
 	}
 
 	public boolean allowCAP() {
@@ -41,9 +45,11 @@ public class Plane {
 		return planeType.getCapContribution();
 	}
 
-	/*
-	public boolean isBasingType(BasingType type) {
-		return basingType == type;
+	public int getID() {
+		return this.ID;
 	}
-	 */
+
+	public boolean isCombatReady() {
+		return combatReady;
+	}
 }

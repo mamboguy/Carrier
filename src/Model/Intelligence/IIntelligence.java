@@ -7,7 +7,7 @@ package Model.Intelligence;
 
 public interface IIntelligence {
 
-	int intelligenceLevel();
+	IntelLevel intelligenceLevel();
 
 	IIntelligence upgradeIntelligence(int dieRoll);
 
