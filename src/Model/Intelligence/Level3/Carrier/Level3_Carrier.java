@@ -30,7 +30,7 @@ public abstract class Level3_Carrier extends Level3 {
 			modifier += 4;
 		}
 
-		if (commitLimit - commitIndex <= 5){
+		if (GameSettings.instance().getIndexes().isCarrierCommitWithinXOfLimit(5)){
 			modifier -= 4;
 		}
 

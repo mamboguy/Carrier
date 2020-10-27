@@ -1,6 +1,7 @@
 package Model.Intelligence.Other;
 
 import Model.Intelligence.IIntelligence;
+import Model.Intelligence.IntelLevel;
 import Model.Intelligence.Intelligence;
 
 /**
@@ -14,8 +15,8 @@ public class DummyModel
 	//Dummy model is a way for force chits to be removed if a dummy intel chit is drawn
 
 	@Override
-	public int intelligenceLevel() {
-		return -1;
+	public IntelLevel intelligenceLevel() {
+		return IntelLevel.Dummy;
 	}
 
 	@Override

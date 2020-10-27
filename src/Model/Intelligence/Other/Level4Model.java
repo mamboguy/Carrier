@@ -1,6 +1,7 @@
 package Model.Intelligence.Other;
 
 import Model.Intelligence.IIntelligence;
+import Model.Intelligence.IntelLevel;
 import Model.Intelligence.Intelligence;
 
 /**
@@ -64,8 +65,8 @@ public class Level4Model
 	}
 
 	@Override
-	public int intelligenceLevel() {
-		return 4;
+	public IntelLevel intelligenceLevel() {
+		return IntelLevel.Level4;
 	}
 
 	//Level 4 intelligence never changes

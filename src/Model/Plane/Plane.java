@@ -12,7 +12,6 @@ public class Plane {
 
 	//Combat stats
 	private boolean isCombatReady;
-	private boolean willBeDestroyed;
 
 	//Endurance stats
 	private boolean isAloft;
@@ -28,7 +27,6 @@ public class Plane {
 	public Plane(PlaneType planeType/*, BasingType basingType*/) {
 		this.isAloft = false;
 		this.isCombatReady = false;
-		this.willBeDestroyed = false;
 
 		this.planeType = planeType;
 		this.moveModel = new StandardMovement();

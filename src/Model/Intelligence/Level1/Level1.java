@@ -1,6 +1,8 @@
 package Model.Intelligence.Level1;
 
+import Controller.GameMaster.GameSettings;
 import Model.Intelligence.IIntelligence;
+import Model.Intelligence.IntelLevel;
 import Model.Intelligence.Intelligence;
 import Model.Intelligence.Other.Level0Model;
 
@@ -13,8 +15,8 @@ public abstract class Level1
 		extends Intelligence {
 
 	@Override
-	public int intelligenceLevel() {
-		return 1;
+	public IntelLevel intelligenceLevel() {
+		return IntelLevel.Level1;
 	}
 
 	@Override
@@ -24,11 +26,19 @@ public abstract class Level1
 
 	@Override
 	protected int getModifiers() {
-		// TODO: 2020-10-11 Implement me & fix return
+
+		int modifier = 0;
 
 		//-4 if Carrier Commit Index is within 5 or less of limit
+		if (GameSettings.instance().getIndexes().isCarrierCommitWithinXOfLimit(5)){
+			modifier -= 4;
+		}
+
 		//-4 if force has secondary objective (doesn't apply if any air strength)
 
+
+		//Generate modifier from revealed air strength
+		//// TODO: 2020-10-18 Grab the air strength from the force
 		int revealedAirStrength = 0;
 
 		if (revealedAirStrength <= 4){

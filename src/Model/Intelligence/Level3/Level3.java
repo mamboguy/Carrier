@@ -1,6 +1,7 @@
 package Model.Intelligence.Level3;
 
 import Model.Intelligence.IIntelligence;
+import Model.Intelligence.IntelLevel;
 import Model.Intelligence.Intelligence;
 
 /**
@@ -11,8 +12,8 @@ import Model.Intelligence.Intelligence;
 public abstract class Level3 extends Intelligence {
 
 	@Override
-	public int intelligenceLevel() {
-		return 3;
+	public IntelLevel intelligenceLevel() {
+		return IntelLevel.Level3;
 	}
 
 	//Level 3 intel chits don't downgrade
