@@ -39,4 +39,19 @@ public class Die {
 			return lastRoll + modifier;
 		}
 	}
+
+	public int getBoundedLastRoll_ArrayResult(int modifier, int upperBound, int lowerBound) {
+		int roll = lastRoll;
+
+		if (lastRoll + modifier >= upperBound) {
+			roll = upperBound;
+		} else if (lastRoll + modifier <= lowerBound) {
+			roll = lowerBound;
+		} else {
+			roll =  lastRoll + modifier;
+		}
+
+		//Offset the roll so that the lowerbound is equal to 0 (allowing array lookup)
+		return roll - lowerBound;
+	}
 }

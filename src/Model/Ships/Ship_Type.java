@@ -12,13 +12,15 @@ package Model.Ships;
 public enum Ship_Type {
 
 	//Ship type (Purchase cost (pg 52), Heavy Damage Points, Sunk Damage Points)
+	Carrier(0, 0, 0, "Carrier", "UNK"),
+	Carrier_Escort(0, 0, 0, "Carrier", "CVE"),
+	Carrier_Light(0, 0, 0, "Carrier", "CVL"),
 	Battleship(8, 2, 4, "Battleship", "BB"),
 	Cruiser_CA(2, 1, 1, "Cruiser", "CA"),
 	Cruiser_CL(2, 0, 1, "Cruiser", "CL"),
 	Cruiser_CLAA(3, 1, 2, "Cruiser", "CLAA"),
 	Destroyer(1, 0, 1, "Destroyer", "DD"),
-	Transport(0, 0, 1, "Transport", "TR"),
-	Carrier(0, 0, 0, "Carrier", "UNK");
+	Transport(0, 0, 1, "Transport", "TR");
 
 	private final int purchaseCost;
 	private final int heavyDmgPts;
