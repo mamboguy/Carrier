@@ -44,6 +44,7 @@ public abstract class Level3 implements IIntelligenceModel {
 		while (!GameSettings.instance().getJapaneseShipFactory().hasEnoughShips(results[0], results[1], results[2], results[3], results[4], results[5], results[6])){
 			results = getShipCountsFromIntelUpgrade(dieRoll);
 			Die d = new Die(10);
+			d.rollDie();
 			dieRoll = d.getBoundedLastRoll(getModifiers(parent), upperChartNumber(), lowerChartNumber());
 		}
 

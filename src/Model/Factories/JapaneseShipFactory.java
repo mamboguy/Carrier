@@ -275,6 +275,6 @@ public class JapaneseShipFactory implements IShipFactory {
     }
 
     private boolean checkSize(List<JapaneseShipIndex> shipList, int shipsNeeded) {
-        return (shipList.size() > shipsNeeded);
+        return (shipList.size() >= shipsNeeded);
     }
 }
