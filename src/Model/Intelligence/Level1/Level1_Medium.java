@@ -1,9 +1,10 @@
 package Model.Intelligence.Level1;
 
-import Model.Intelligence.IIntelligence;
-import Model.Intelligence.Level2.Level2_2or3CV;
-import Model.Intelligence.Level2.Level2_MedSurface;
-import Model.Intelligence.Level2.Level2_MedTransport;
+import Controller.Die;
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
+import Model.Intelligence.Level2.*;
+import Model.Intelligence.Other.DummyModel;
 
 /**
  Created on 11 Oct 2020
@@ -14,12 +15,7 @@ public class Level1_Medium
 		extends Level1{
 
 	@Override
-	public IIntelligence upgradeIntelligence(int dieRoll) {
-		if (dieRoll < 1){
-			dieRoll = 1;
-		} else if (dieRoll > 10){
-			dieRoll = 10;
-		}
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
 
 		switch (dieRoll){
 			case 1:
@@ -36,13 +32,26 @@ public class Level1_Medium
 			case 9:
 				return new Level2_2or3CV();
 			case 10:
-				checkRollAgain();
+				Die die = new Die(10);
+				die.rollDie();
+				dieRoll = die.getBoundedLastRoll(getModifiers(parent), upperChartNumber(), lowerChartNumber());
+
+				switch (dieRoll){
+					case 1:
+						return  new Level2_1or2CV();
+					case 2:
+					case 3:
+						return new Level2_LgSurface();
+					default:
+						return new DummyModel();
+				}
 			default:
 				throw new UnsupportedOperationException();
 		}
 	}
 
-	private void checkRollAgain() {
-		// TODO: 2020-10-11 Implement me
+	@Override
+	public String printSettings() {
+		return "Level 1 - Medium";
 	}
 }

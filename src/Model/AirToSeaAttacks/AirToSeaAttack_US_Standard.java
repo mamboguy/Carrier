@@ -5,7 +5,6 @@ import Controller.GameMaster.GameSettings;
 import Model.Enums.ScenarioPeriod;
 import Model.Forces.IForce;
 import Model.Forces.IStrikeForce;
-import Model.Settings.JapaneseCommitmentAndUSForces;
 
 public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
 
@@ -51,7 +50,7 @@ public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
     protected void combatVSCAP(IForce shipFleet, IStrikeForce strikeForce) {
 
         //Get the strength of the enemy force's CAP
-        int capStrength = lookupCAPStrength(shipFleet.getAirValueForCAP());
+        int capStrength = lookupCAPStrength(shipFleet.getAirValue());
 
         //Lookup how many losses are the result of that CAP strength
         int losses = lookupCAPLosses(capStrength, strikeForce);

@@ -1,9 +1,15 @@
 package Model.Forces;
 
+import Model.Enums.Objective;
+
 public interface IForce {
 
-    int getAirValueForCAP();
+    int getAirValue();
 
     int getAAValue();
+
+    boolean hasAirValue();
+
+    Objective getObjective();
 }
 

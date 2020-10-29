@@ -4,46 +4,52 @@ import Model.Plane.MovementModels.IPlaneMoveModel;
 import Model.Plane.MovementModels.StandardMovement;
 
 /**
- Created on 04 Aug 2020
-
- @Author - Mambo */
+ * Created on 04 Aug 2020
+ *
+ * @Author - Mambo
+ */
 
 public class Plane {
 
-	//Combat stats
-	private boolean isCombatReady;
+    private static int planeID = 0;
+    private int id;
 
-	//Endurance stats
-	private boolean isAloft;
-	private int currentTimeAloft;
+    //Combat stats
+    private boolean combatReady;
 
-	//Movement stats
-	private IPlaneMoveModel moveModel;
+    //Endurance stats
+    private boolean isAloft;
+    private int currentTimeAloft;
 
-	//Attribute stats
-	private PlaneType planeType;
-	//private BasingType basingType; //Land vs Sea
+    //Movement stats
+    private IPlaneMoveModel moveModel;
 
-	public Plane(PlaneType planeType/*, BasingType basingType*/) {
-		this.isAloft = false;
-		this.isCombatReady = false;
+    //Attribute stats
+    private PlaneType planeType;
 
-		this.planeType = planeType;
-		this.moveModel = new StandardMovement();
-		//this.basingType = basingType;
-	}
+    public Plane(PlaneType planeType) {
+        this.id = planeID++;
+        this.isAloft = false;
+        this.combatReady = false;
 
-	public boolean allowCAP() {
-		return planeType.allowCAP();
-	}
+        this.planeType = planeType;
+        this.moveModel = new StandardMovement();
+        //this.basingType = basingType;
+    }
 
-	public double getCAPContribution() {
-		return planeType.getCapContribution();
-	}
+    public boolean allowCAP() {
+        return planeType.allowCAP();
+    }
 
-	/*
-	public boolean isBasingType(BasingType type) {
-		return basingType == type;
-	}
-	 */
+    public double getCAPContribution() {
+        return planeType.getCapContribution();
+    }
+
+    public int getID() {
+        return this.id;
+    }
+
+    public boolean isCombatReady() {
+        return combatReady;
+    }
 }

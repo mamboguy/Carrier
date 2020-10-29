@@ -1,7 +1,11 @@
 package Model.Intelligence.Level3.Carrier;
 
-import Model.Intelligence.IIntelligence;
+import Controller.Die;
+import Controller.GameMaster.GameSettings;
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level2.Level2_MedSurface;
+import Model.Intelligence.Level2.Level2_SmSurface;
 import Model.Intelligence.Other.Level4Model;
 
 /**
@@ -13,27 +17,17 @@ public class Level3_1CV
 		extends Level3_Carrier {
 
 	public Level3_1CV() {
-		super();
-		super.screenForce = new Level2_MedSurface();
-		screenForce.upgradeIntelligence(super.getDieRoll());
+		generateScreen(new Level2_MedSurface());
 	}
 
 	@Override
-	public IIntelligence upgradeIntelligence(int dieRoll) {
+	protected int[] upgradeMyIntel(int dieRoll) {
 
 		int cvCount = 0;
 		int cveCount = 0;
 		int cvlCount = 0;
 
-		if (dieRoll < 1){
-			dieRoll = 1;
-		}
-
-		if (dieRoll > 10){
-			dieRoll = 11;
-		}
-
-		switch (dieRoll){
+		switch (dieRoll) {
 
 			case 1:
 			case 2:
@@ -62,6 +56,11 @@ public class Level3_1CV
 				throw new UnsupportedOperationException();
 		}
 
-		return new Level4Model(cvCount, cveCount, cvlCount, 0, 0, 0, 0, 0);
+		return new int[] {cvCount, cveCount, cvlCount};
+	}
+
+	@Override
+	public String printSettings() {
+		return "Level 3 - 1 CV";
 	}
 }

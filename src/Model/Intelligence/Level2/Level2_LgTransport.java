@@ -1,6 +1,7 @@
 package Model.Intelligence.Level2;
 
-import Model.Intelligence.IIntelligence;
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level1.Level1_Transport;
 import Model.Intelligence.Level3.Transport.Level3_TransportA;
 import Model.Intelligence.Level3.Transport.Level3_TransportB;
@@ -15,7 +16,8 @@ public class Level2_LgTransport
 		extends Level2{
 
 	@Override
-	public IIntelligence upgradeIntelligence(int dieRoll) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+
 		switch (dieRoll){
 			case 1:
 			case 2:
@@ -36,7 +38,12 @@ public class Level2_LgTransport
 	}
 
 	@Override
-	public IIntelligence downgradeIntelligence() {
+	public IIntelligenceModel downgradeIntelligence() {
 		return new Level1_Transport();
+	}
+
+	@Override
+	public String printSettings() {
+		return "Level 2 - Large Transport";
 	}
 }

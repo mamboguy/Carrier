@@ -1,9 +1,9 @@
 package Model.Intelligence.Level1;
 
 import Controller.GameMaster.GameSettings;
-import Model.Intelligence.IIntelligence;
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.IntelLevel;
-import Model.Intelligence.Intelligence;
 import Model.Intelligence.Other.Level0Model;
 
 /**
@@ -12,20 +12,34 @@ import Model.Intelligence.Other.Level0Model;
  @Author - Mambo */
 
 public abstract class Level1
-		extends Intelligence {
+		implements IIntelligenceModel {
 
-	@Override
-	public IntelLevel intelligenceLevel() {
-		return IntelLevel.Level1;
+	public Level1(){
+
 	}
 
 	@Override
-	public IIntelligence downgradeIntelligence() {
+	public IIntelligenceModel downgradeIntelligence() {
 		return new Level0Model();
 	}
 
 	@Override
-	protected int getModifiers() {
+	public IntelLevel getIntelLevel() {
+		return IntelLevel.Level1;
+	}
+
+	@Override
+	public int upperChartNumber() {
+		return 1;
+	}
+
+	@Override
+	public int lowerChartNumber() {
+		return 10;
+	}
+
+	@Override
+	public int getModifiers(IForce force) {
 
 		int modifier = 0;
 
@@ -34,19 +48,26 @@ public abstract class Level1
 			modifier -= 4;
 		}
 
-		//-4 if force has secondary objective (doesn't apply if any air strength)
+		if (force.hasAirValue()){
+			//Generate modifier from revealed air strength
+			int revealedAirStrength = force.getAirValue();
 
+			if (revealedAirStrength <= 4){
+				revealedAirStrength = 5;
+			} else if (revealedAirStrength >= 14){
+				revealedAirStrength = 14;
+			}
 
-		//Generate modifier from revealed air strength
-		//// TODO: 2020-10-18 Grab the air strength from the force
-		int revealedAirStrength = 0;
+			modifier += (revealedAirStrength - 9);
+		} else {
 
-		if (revealedAirStrength <= 4){
-			revealedAirStrength = 5;
-		} else if (revealedAirStrength >= 14){
-			revealedAirStrength = 14;
+			//-4 if force has secondary objective (doesn't apply if any air strength)
+			if (force.getObjective() == GameSettings.instance().getJapaneseObjective().getSecondaryObjective()){
+				modifier -= 4;
+			}
+
 		}
 
-		return revealedAirStrength - 9;
+		return modifier;
 	}
 }

@@ -1,5 +1,7 @@
 package Model.Intelligence.Level2;
 
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.IntelLevel;
 import Model.Intelligence.Intelligence;
 
@@ -8,15 +10,29 @@ import Model.Intelligence.Intelligence;
 
  @Author - Mambo */
 
-public abstract class Level2 extends Intelligence {
+public abstract class Level2 implements IIntelligenceModel {
 
-	@Override
-	public IntelLevel intelligenceLevel() {
-		return IntelLevel.Level2;
+	public Level2(){
+
 	}
 
 	@Override
-	protected int getModifiers() {
+	public int upperChartNumber() {
+		return 10;
+	}
+
+	@Override
+	public int lowerChartNumber() {
+		return 1;
+	}
+
+	@Override
+	public int getModifiers(IForce force) {
 		return 0;
+	}
+
+	@Override
+	public IntelLevel getIntelLevel() {
+		return IntelLevel.Level2;
 	}
 }

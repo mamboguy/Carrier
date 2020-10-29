@@ -2,6 +2,7 @@ package Controller.GameMaster;
 
 import Controller.Die;
 import Model.Enums.ScenarioPeriod;
+import Model.Factories.JapaneseShipFactory;
 import Model.Settings.JapaneseCommitmentAndUSForces;
 import Model.Settings.JapaneseIndexes;
 import Model.Settings.JapaneseObjective;
@@ -12,7 +13,7 @@ public class GameSettings {
     //<editor-fold defaultstate="collapsed" desc="Define as Singleton">
     private static GameSettings instance = null;
 
-    protected GameSettings() {
+    private GameSettings() {
         Die die = new Die(10);
         die.rollDie();
 
@@ -26,22 +27,28 @@ public class GameSettings {
         commitments = new JapaneseCommitmentAndUSForces(scenario, japaneseObjective.hasSecondaryObjective());
         indexes = new JapaneseIndexes();
         rabaulAirValue = new LandAirValues(scenario);
+
+        japaneseShipFactory = new JapaneseShipFactory(scenario);
     }
 
     public static GameSettings instance() {
         if (instance == null) {
             instance = new GameSettings();
         }
+
         return instance;
     }
-
     //</editor-fold>
+
     private ScenarioPeriod scenario;
 
     private JapaneseObjective japaneseObjective;
     private JapaneseCommitmentAndUSForces commitments;
     private JapaneseIndexes indexes;
     private LandAirValues rabaulAirValue;
+
+    private JapaneseShipFactory japaneseShipFactory;
+
 
     public JapaneseCommitmentAndUSForces getCommitments() {
         return commitments;
@@ -58,6 +65,8 @@ public class GameSettings {
     public ScenarioPeriod getScenarioPeriod() {
         return scenario;
     }
+
+    public JapaneseShipFactory getJapaneseShipFactory() {return japaneseShipFactory; }
 
     private void generateTimePeriod(int lastRoll) {
         switch (lastRoll){
@@ -82,5 +91,10 @@ public class GameSettings {
         }
 
         System.out.println("Period - " + scenario.getTimeframe() + "(" + lastRoll + ")\n");
+    }
+
+    public boolean useOnlyAvailableShipsForTimePeriod() {
+        //TODO 10/27/2020 - Implement me
+        return true;
     }
 }

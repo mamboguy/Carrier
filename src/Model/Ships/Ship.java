@@ -17,6 +17,7 @@ public class Ship {
 
 	private int aaValue;
 	private int bombardmentValue;
+	private int airValue;
 
 	//Specific behaviors for different ships
 	private BasicDamageModel damageModel;
@@ -49,6 +50,15 @@ public class Ship {
 		}
 	}
 
+	//
+	public Ship(Ship_Type type, int airValue, int aaValue, int hpValue, int bombardmentValue, String name) {
+		this.type = type;
+		this.shipName = name;
+		this.aaValue = aaValue;
+		this.bombardmentValue = bombardmentValue;
+		this.damageModel = new NonCarrierDamageModel(hpValue);
+	}
+
 	public String getShipName() {
 		return shipName;
 	}
@@ -72,6 +82,10 @@ public class Ship {
 
 	public String getShortTypeName() {
 		return type.getShortName();
+	}
+
+	public int getAirValue(){
+		return this.airValue;
 	}
 	// </editor-fold>
 

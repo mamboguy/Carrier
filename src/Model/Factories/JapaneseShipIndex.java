@@ -1,5 +1,6 @@
 package Model.Factories;
 
+import Model.Enums.ScenarioPeriod;
 import Model.Ships.Ship_Type;
 
 public enum JapaneseShipIndex {
@@ -105,10 +106,12 @@ public enum JapaneseShipIndex {
     Yugumo ("Yugumo", 0, 1, 3, 1, true, true, true, true),
     Yugure ("Yugure", 0, 1, 3, 1, true, true, true, true),
     Yukikaze ("Yukikaze", 0, 1, 3, 1, true, true, true, true),
-    Yuzuki ("Yuzuki", 0, 2, 3, 1, true, true, true, true);
+    Yuzuki ("Yuzuki", 0, 2, 3, 1, true, true, true, true),
+
+    //Transports
+    Maru ("Maru", 0, 1, 2, 0, true, true, true, true);
 
 
-    private Ship_Type type;
     private String name;
     private int airValue;
     private int aaValue;
@@ -129,5 +132,42 @@ public enum JapaneseShipIndex {
         this.availableAugSept42 = availableAugSept42;
         this.availableOctDec42 = availableOctDec42;
         this.available1943 = available1943;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAirValue() {
+        return airValue;
+    }
+
+    public int getAaValue() {
+        return aaValue;
+    }
+
+    public int getHpValue() {
+        return hpValue;
+    }
+
+    public int getBombardmentValue() {
+        return bombardmentValue;
+    }
+
+    public boolean isAvailableForPeriod(ScenarioPeriod period){
+        int index = period.getIntValue() + 5;
+
+        switch (index){
+            case 5:
+                return availableJanJul42;
+            case 6:
+                return availableAugSept42;
+            case 7:
+                return availableOctDec42;
+            case 8:
+                return available1943;
+            default:
+                return false;
+        }
     }
 }

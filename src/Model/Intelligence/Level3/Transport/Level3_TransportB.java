@@ -1,6 +1,7 @@
 package Model.Intelligence.Level3.Transport;
 
-import Model.Intelligence.IIntelligence;
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level3.Level3;
 import Model.Intelligence.Other.Level4Model;
 
@@ -13,13 +14,7 @@ public class Level3_TransportB
 		extends Level3 {
 
 	@Override
-	protected int getModifiers() {
-		return 0;
-	}
-
-	@Override
-	public IIntelligence upgradeIntelligence(int dieRoll) {
-
+	public int[] getShipCountsFromIntelUpgrade(int dieRoll) {
 		int transportCount;
 		int ddCount;
 
@@ -62,6 +57,11 @@ public class Level3_TransportB
 				throw new UnsupportedOperationException();
 		}
 
-		return new Level4Model(0, 0, 0, 0, 0, 0, ddCount, transportCount);
+		return new int[]{0, 0, 0, 0, 0, 0, ddCount, transportCount};
+	}
+
+	@Override
+	public String printSettings() {
+		return "Level 3 - Transport B";
 	}
 }

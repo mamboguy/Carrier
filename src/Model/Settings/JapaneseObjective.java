@@ -47,7 +47,7 @@ public class JapaneseObjective {
 				break;
 		}
 
-		printSettings(die.getLastRoll());
+		//printSettings(die.getLastRoll());
 	}
 
 	private void printSettings(int dieRoll){
@@ -208,11 +208,11 @@ public class JapaneseObjective {
 		this.transportSecondary = 6 - transportPrimary;
 	}
 
-	public Objective getGetPrimaryObjective() {
+	public Objective getPrimaryObjective() {
 		return primaryObjective;
 	}
 
-	public Objective getGetSecondaryObjective() {
+	public Objective getSecondaryObjective() {
 		return secondaryObjective;
 	}
 

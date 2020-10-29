@@ -1,6 +1,7 @@
 package Model.Intelligence.Level2;
 
-import Model.Intelligence.IIntelligence;
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level1.Level1_Large;
 import Model.Intelligence.Level3.Surface.*;
 
@@ -13,7 +14,7 @@ public class Level2_LgSurface
 		extends Level2{
 
 	@Override
-	public IIntelligence upgradeIntelligence(int dieRoll) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
 
 		switch (dieRoll){
 			case 1:
@@ -37,7 +38,12 @@ public class Level2_LgSurface
 	}
 
 	@Override
-	public IIntelligence downgradeIntelligence() {
+	public IIntelligenceModel downgradeIntelligence() {
 		return new Level1_Large();
+	}
+
+	@Override
+	public String printSettings() {
+		return "Level 2 - Large Surface";
 	}
 }

@@ -1,6 +1,7 @@
 package Model.Intelligence.Level2;
 
-import Model.Intelligence.IIntelligence;
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level1.Level1_Transport;
 import Model.Intelligence.Level3.Transport.Level3_TransportA;
 import Model.Intelligence.Level3.Transport.Level3_TransportB;
@@ -16,7 +17,10 @@ public class Level2_MedTransport
 		extends Level2{
 
 	@Override
-	public IIntelligence upgradeIntelligence(int dieRoll) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+
+		System.out.println("Currently: Level 2 - Medium Transport"  + "   - (" + dieRoll + ")");
+
 		switch (dieRoll){
 			case 1:
 				return new Level3_TransportD();
@@ -38,7 +42,13 @@ public class Level2_MedTransport
 	}
 
 	@Override
-	public IIntelligence downgradeIntelligence() {
+	public IIntelligenceModel downgradeIntelligence() {
 		return new Level1_Transport();
 	}
+
+	@Override
+	public String printSettings() {
+		return "Level 2 - Medium Transport";
+	}
+
 }

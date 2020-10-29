@@ -61,7 +61,7 @@ public class JapaneseCommitmentAndUSForces {
 		usSurfacePoints = values[5];
 		strategicSurprise = (values[6] == 1);
 
-		printSettings(die.getLastRoll());
+		//printSettings(die.getLastRoll());
 	}
 
 	private int[] janJul42_OneObjective(int lastRoll) {
@@ -222,7 +222,7 @@ public class JapaneseCommitmentAndUSForces {
 				"Surf Pts:          " + usSurf_Opt1 + "                     " + usSurf_Opt2 + "\n" +
 				"Surprise?         " + stratOpt1 + "                       " + stratOpt2;
 
-		System.out.println(message);
+		//System.out.println(message);
 
 		String[] options = {"Option 1", "Option 2"};
 

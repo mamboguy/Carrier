@@ -1,6 +1,8 @@
 package Model.Intelligence.Level2;
 
+import Model.Forces.IForce;
 import Model.Intelligence.IIntelligence;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level1.Level1_Carrier;
 import Model.Intelligence.Level3.Carrier.*;
 
@@ -13,22 +15,30 @@ public class Level2_2or3CV
 		extends Level2 {
 
 	@Override
-	public IIntelligence upgradeIntelligence(int dieRoll) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
 
-		int revealedAirStrength = -1;
+		if (parent.hasAirValue()){
 
-		if (revealedAirStrength <= 7){
-			return lowestStrength(dieRoll);
-		} else if (revealedAirStrength >= 8 || revealedAirStrength <= 10){
-			return secondStrength(dieRoll);
-		} else if (revealedAirStrength >= 11 && revealedAirStrength <= 13){
-			return thirdStrength(dieRoll);
+			int revealedAirStrength = parent.getAirValue();
+
+			if (revealedAirStrength <= 7){
+				return lowestStrength(dieRoll);
+			} else if (revealedAirStrength >= 8 && revealedAirStrength <= 10){
+				return secondStrength(dieRoll);
+			} else if (revealedAirStrength >= 11 && revealedAirStrength <= 13){
+				return thirdStrength(dieRoll);
+			} else {
+				return biggestStrength(dieRoll);
+			}
+
 		} else {
-			return biggestStrength(dieRoll);
+			//If no air value, look up on 3rd column
+			return thirdStrength(dieRoll);
 		}
+
 	}
 
-	private IIntelligence lowestStrength(int dieRoll) {
+	private IIntelligenceModel lowestStrength(int dieRoll) {
 		switch (dieRoll){
 			case 1:
 			case 2:
@@ -47,7 +57,7 @@ public class Level2_2or3CV
 		}
 	}
 
-	private IIntelligence secondStrength(int dieRoll) {
+	private IIntelligenceModel secondStrength(int dieRoll) {
 		switch (dieRoll){
 			case 1:
 			case 2:
@@ -67,7 +77,7 @@ public class Level2_2or3CV
 		}
 	}
 
-	private IIntelligence thirdStrength(int dieRoll) {
+	private IIntelligenceModel thirdStrength(int dieRoll) {
 		switch (dieRoll){
 			case 1:
 			case 2:
@@ -86,7 +96,7 @@ public class Level2_2or3CV
 		}
 	}
 
-	private IIntelligence biggestStrength(int dieRoll) {
+	private IIntelligenceModel biggestStrength(int dieRoll) {
 		switch (dieRoll){
 			case 1:
 			case 2:
@@ -106,7 +116,12 @@ public class Level2_2or3CV
 	}
 
 	@Override
-	public IIntelligence downgradeIntelligence() {
+	public IIntelligenceModel downgradeIntelligence() {
 		return new Level1_Carrier();
+	}
+
+	@Override
+	public String printSettings() {
+		return "Level 2 - 2 or 3 CV";
 	}
 }

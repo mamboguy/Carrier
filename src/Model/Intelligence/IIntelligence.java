@@ -9,7 +9,9 @@ public interface IIntelligence {
 
 	IntelLevel intelligenceLevel();
 
-	IIntelligence upgradeIntelligence(int dieRoll);
+	void upgradeIntelligence();
 
-	IIntelligence downgradeIntelligence();
+	void downgradeIntelligence();
+
+    void printSettings();
 }

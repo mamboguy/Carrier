@@ -37,7 +37,7 @@ public class LandAirValues {
 		die.rollDie();
 		getUSLandAirValues(period, die);
 
-		printSettings();
+		//printSettings();
 	}
 
 	private void printSettings(){

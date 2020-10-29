@@ -1,6 +1,7 @@
 package Model.Intelligence.Level3.Surface;
 
-import Model.Intelligence.IIntelligence;
+import Model.Forces.IForce;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level3.Level3;
 import Model.Intelligence.Other.Level4Model;
 
@@ -11,14 +12,9 @@ import Model.Intelligence.Other.Level4Model;
 
 public class Level3_MedBB extends Level3 {
 
-	@Override
-	protected int getModifiers() {
-		return 0;
-	}
 
 	@Override
-	public IIntelligence upgradeIntelligence(int dieRoll) {
-
+	public int[] getShipCountsFromIntelUpgrade(int dieRoll) {
 		int bbCount = 0;
 		int clCount = 0;
 		int caCount = 0;
@@ -88,6 +84,11 @@ public class Level3_MedBB extends Level3 {
 				throw new UnsupportedOperationException();
 		}
 
-		return new Level4Model(0, 0, 0, bbCount, caCount, clCount, ddCount, 0);
+		return new int[]{0, 0, 0, bbCount, caCount, clCount, ddCount, 0};
+	}
+
+	@Override
+	public String printSettings() {
+		return "Level 3 - Medium BB";
 	}
 }

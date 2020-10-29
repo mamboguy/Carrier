@@ -2,6 +2,7 @@ package Model.Enums;
 
 import Controller.GameMaster.GameSettings;
 import Model.Intelligence.IIntelligence;
+import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level1.Level1_Surface;
 import Model.Intelligence.Other.DummyModel;
 import Model.Intelligence.Other.Level0Model;
@@ -191,11 +192,11 @@ public enum Arrival {
 		return arrivalLocations[row][col];
 	}
 
-	public IIntelligence getArrivalIntelligence(int dieroll1, int dieroll2) {
+	public IIntelligenceModel getArrivalIntelligence(int dieroll1, int dieroll2) {
 		int row = adjustDie(dieroll1);
 		int col = adjustDie(dieroll2);
 
-		IIntelligence intel = new Level0Model();
+		IIntelligenceModel intel = new Level0Model();
 
 		if (specialArrival[row][col]){
 
