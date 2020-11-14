@@ -1,11 +1,15 @@
 package Model.Airfield.PlaneLocations;
 
-import Model.Airfield.AirfieldMoveType;
+import Model.Airfield.AirfieldMove.AirfieldMove_Allow;
+import Model.Airfield.AirfieldMove.AirfieldMove_Disallow;
+import Model.Airfield.AirfieldMove.IAirfieldMove;
 
 /**
  Created on 24 Oct 2020
 
  @Author - Mambo */
+
+// TODO: 2020-11-13 Remove from the PlaneLocation package and add to the AirStrike package
 
 public class PlaneLocation_AirStrike extends PlaneLocation {
 
@@ -14,11 +18,11 @@ public class PlaneLocation_AirStrike extends PlaneLocation {
 	}
 
 	@Override
-	public AirfieldMoveType getMoveType(PlaneLocation location) {
+	public IAirfieldMove getMoveType(PlaneLocation location) {
 		if (location instanceof PlaneLocation_LandingBox){
-			return AirfieldMoveType.Allow;
+			return new AirfieldMove_Allow();
 		}
 
-		return AirfieldMoveType.Disallow;
+		return new AirfieldMove_Disallow();
 	}
 }

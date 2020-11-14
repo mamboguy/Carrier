@@ -1,12 +1,10 @@
 package Model.Factories;
 
 import Controller.Die;
-import Controller.GameMaster.GameSettings;
 import Model.Enums.ScenarioPeriod;
 import Model.Ships.Ship;
 import Model.Ships.Ship_Type;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,6 +182,12 @@ public class JapaneseShipFactory implements IShipFactory {
     }
 
     @Override
+    public ArrayList<Ship> giveCruiser_CLAA(int count) {
+        //Japanese do not AA type cruisers
+        return null;
+    }
+
+    @Override
     public ArrayList<Ship> giveDestroyer(int count) {
         return getShipFromArray(Ship_Type.Destroyer, destroyersAvailable, destroyersUsed, count);
     }
@@ -195,7 +199,7 @@ public class JapaneseShipFactory implements IShipFactory {
         ArrayList<Ship> temp = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            temp.add(new Ship(Ship_Type.Transport, transport.getAaValue(), transport.getHpValue(), transport.getBombardmentValue(), transport.getName()));
+            temp.add(new Ship(Ship_Type.Transport, transport.getAaValue(), transport.getMaxHP(), transport.getBombardmentValue(), transport.getName()));
         }
 
         return temp;
@@ -261,7 +265,7 @@ public class JapaneseShipFactory implements IShipFactory {
             shipsUsed.add(chosenShip);
             shipsAvailable.remove(chosenShip);
 
-            list.add(new Ship(type, chosenShip.getAirValue(), chosenShip.getAaValue(), chosenShip.getHpValue(), chosenShip.getBombardmentValue(), chosenShip.getName()));
+            list.add(ShipObjectFactory.createJapaneseShip(type, chosenShip));
         }
 
         return list;

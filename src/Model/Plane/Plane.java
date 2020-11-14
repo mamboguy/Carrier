@@ -34,7 +34,6 @@ public class Plane {
 
         this.planeType = planeType;
         this.moveModel = new StandardMovement();
-        //this.basingType = basingType;
     }
 
     public boolean allowCAP() {

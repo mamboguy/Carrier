@@ -47,22 +47,6 @@ public class GameChitCups {
         die = new Die(intelligenceChitCup.size());
     }
 
-    public IIntelligenceModel drawAndRemoveForceChitIntel(){
-        die.rollDie();
-
-        //Draw and remove from the chit cup
-        IIntelligenceModel draw = intelligenceChitCup.get(die.getLastRoll());
-        intelligenceChitCup.remove(die.getLastRoll());
-
-        die = new Die(intelligenceChitCup.size());
-
-        return draw;
-    }
-
-    public void returnDrawnChit(IIntelligenceModel chit){
-        intelligenceChitCup.add(chit);
-    }
-
     private ArrayList<IIntelligenceModel> insertChits(IIntelligenceModel model, int count) {
         ArrayList<IIntelligenceModel> temp = new ArrayList<>();
 
@@ -81,4 +65,20 @@ public class GameChitCups {
         return instance;
     }
     //</editor-fold>
+
+    public IIntelligenceModel drawAndRemoveForceChitIntel(){
+        die.rollDie();
+
+        //Draw and remove from the chit cup
+        IIntelligenceModel draw = intelligenceChitCup.get(die.getLastRoll());
+        intelligenceChitCup.remove(die.getLastRoll());
+
+        die = new Die(intelligenceChitCup.size());
+
+        return draw;
+    }
+
+    public void returnDrawnChit(IIntelligenceModel chit){
+        intelligenceChitCup.add(chit);
+    }
 }

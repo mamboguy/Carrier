@@ -1,7 +1,6 @@
 package Model.Factories;
 
 import Model.Enums.ScenarioPeriod;
-import Model.Ships.Ship_Type;
 
 public enum JapaneseShipIndex {
 
@@ -146,7 +145,7 @@ public enum JapaneseShipIndex {
         return aaValue;
     }
 
-    public int getHpValue() {
+    public int getMaxHP() {
         return hpValue;
     }
 

@@ -53,6 +53,11 @@ public class JapaneseForce implements IForce{
         return objective;
     }
 
+    @Override
+    public void activate() {
+        throw new UnsupportedOperationException();
+    }
+
     private void printSettings(){
         System.out.println("Has Air Value = " + hasAirValue);
         System.out.println("Air Value = " + airValue);

@@ -11,10 +11,8 @@ import Model.Plane.Plane;
 public class AirfieldManager_Carrier
 		extends AirfieldManager {
 
-	private IAirfield parent;
-
 	public AirfieldManager_Carrier(IAirfield airfield){
-		this.parent = airfield;
+		super(airfield);
 	}
 
 	@Override
@@ -35,10 +33,14 @@ public class AirfieldManager_Carrier
 			return false;
 		}
 
-		//Carriers can't land and raise more than 12 steps in a single turn
-		//Carriers can't land and lower more than 12 steps in a single turn
 		//Both of these must simultaneously be true
+		//Carriers can't land and lower more than 12 steps in a single turn
 		if (landCount + raiseCount >= 12 || landCount + lowerCount >= 12){
+			return false;
+		}
+
+		//Carriers can't have more planes on it than its hangar capacity
+		if (!parent.canAcceptAircraft()){
 			return false;
 		}
 
@@ -77,11 +79,41 @@ public class AirfieldManager_Carrier
 
 	@Override
 	public boolean allowRaising(Plane plane) {
-		return false;
+		//Carriers can't raise more than 8 steps in a turn
+		if (raiseCount >= 8){
+			return false;
+		}
+
+		//Carriers can't raise and launch more than 8 steps in a turn
+		if (raiseCount + launchCount >= 8){
+			return false;
+		}
+
+		//Carriers can't raise and land more than 12 steps in a turn
+		if (raiseCount + landCount >= 12){
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
 	public boolean allowLowering(Plane plane) {
-		return false;
+		//Carriers can't lower more than 8 steps in a turn
+		if (lowerCount >= 8){
+			return false;
+		}
+
+		//Carriers can't lower and launch more than 8 steps in a turn
+		if (lowerCount + launchCount >= 8){
+			return false;
+		}
+
+		//Carriers can't lower and land more than 12 steps in a turn
+		if (lowerCount + landCount >= 12){
+			return false;
+		}
+
+		return true;
 	}
 }

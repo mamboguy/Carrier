@@ -1,8 +1,7 @@
 package Model.Ships;
 
-import Model.Ships.DamageAndRepairModels.BasicDamageModel;
-import Model.Ships.DamageAndRepairModels.CarrierDamageModel;
-import Model.Ships.DamageAndRepairModels.NonCarrierDamageModel;
+import Model.Airfield.IAirfield;
+import Model.Ships.DamageAndRepairModels.IDamageModel;
 
 /**
  Created on 02 Aug 2020
@@ -20,43 +19,30 @@ public class Ship {
 	private int airValue;
 
 	//Specific behaviors for different ships
-	private BasicDamageModel damageModel;
+	private IDamageModel damageModel;
+	private IAirfield airfieldModel;
 
 	public Ship(Ship_Type type, int aaValue, int maximumHP, int bombardmentValue, String name) {
 		this.type = type;
 		this.aaValue = aaValue;
 		this.bombardmentValue = bombardmentValue;
 		this.shipName = name;
-
-		//Apply the appropriate models to the ship
-		switch (type) {
-			case Carrier:
-				//If its a carrier, assign it a carrier model
-				damageModel = new CarrierDamageModel(maximumHP);
-
-				//Apply the appropriate sub-type based on the name
-				((CarrierDamageModel) damageModel).generateType(name);
-
-				break;
-			//All other types get the non-carrier version
-			case Battleship:
-			case Cruiser_CA:
-			case Cruiser_CL:
-			case Cruiser_CLAA:
-			case Destroyer:
-			case Transport:
-			default:
-				damageModel = new NonCarrierDamageModel(maximumHP);
-		}
 	}
 
-	//
-	public Ship(Ship_Type type, int airValue, int aaValue, int hpValue, int bombardmentValue, String name) {
-		this.type = type;
-		this.shipName = name;
-		this.aaValue = aaValue;
-		this.bombardmentValue = bombardmentValue;
-		this.damageModel = new NonCarrierDamageModel(hpValue);
+	public void setDamageModel(IDamageModel damageModel){
+		this.damageModel = damageModel;
+	}
+
+	public void setAirfieldModel(IAirfield airfieldModel) {
+		this.airfieldModel = airfieldModel;
+	}
+
+	public IAirfield getAirfieldModel() {
+		return airfieldModel;
+	}
+
+	public void setAirValue(int airValue){
+		this.airValue = airValue;
 	}
 
 	public String getShipName() {
@@ -90,6 +76,10 @@ public class Ship {
 	// </editor-fold>
 
 	// <editor-fold defaultstate="collapsed" desc="Damage Modeling">
+
+	public IDamageModel getDamageModel() {
+		return damageModel;
+	}
 
 	/**
 	 Applies damage to a ship

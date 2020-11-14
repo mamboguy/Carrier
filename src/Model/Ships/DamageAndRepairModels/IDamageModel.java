@@ -15,5 +15,11 @@ public interface IDamageModel {
 
 	boolean isDeadInWater();
 
-	boolean canLaunchPlanes();
+	boolean canLaunchOrLandPlanes();
+
+	int getCurrentHP();
+
+	boolean isSunk();
+
+	void applyDamage(int numberOfHits);
 }

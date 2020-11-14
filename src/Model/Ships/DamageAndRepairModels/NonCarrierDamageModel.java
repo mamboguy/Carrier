@@ -6,8 +6,7 @@ package Model.Ships.DamageAndRepairModels;
  @Author - Mambo */
 
 public class NonCarrierDamageModel
-		extends BasicDamageModel
-		implements IDamageModel {
+		extends BasicDamageModel {
 
 	public NonCarrierDamageModel(int maximumHP) {
 		super(maximumHP);
@@ -44,7 +43,7 @@ public class NonCarrierDamageModel
 	}
 
 	@Override
-	public boolean canLaunchPlanes() {
+	public boolean canLaunchOrLandPlanes() {
 		return false;
 	}
 

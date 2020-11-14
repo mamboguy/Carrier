@@ -16,4 +16,12 @@ public interface IAirfieldManager {
 	boolean allowRaising(Plane plane);
 
 	boolean allowLowering(Plane plane);
+
+	void addLanding();
+
+	void addLaunch();
+
+	void addRaise();
+
+	void addLower();
 }

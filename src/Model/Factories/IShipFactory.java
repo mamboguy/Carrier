@@ -12,6 +12,7 @@ public interface IShipFactory {
     ArrayList<Ship> giveBattleship(int count);
     ArrayList<Ship> giveCruiser_CA(int count);
     ArrayList<Ship> giveCruiser_CL(int count);
+    ArrayList<Ship> giveCruiser_CLAA(int count);
     ArrayList<Ship> giveDestroyer(int count);
     ArrayList<Ship> giveTransport(int count);
 }

@@ -10,8 +10,7 @@ import Model.Ships.DamageAndRepairModels.CarrierRepairModels.*;
  @Author - Mambo */
 
 public class CarrierDamageModel
-		extends BasicDamageModel
-		implements IDamageModel {
+		extends BasicDamageModel {
 
 	private ICarrierDamageModel damageModelType;
 	private BasicDamageRepairModel repairModel;
@@ -91,7 +90,7 @@ public class CarrierDamageModel
 	}
 
 	@Override
-	public boolean canLaunchPlanes() {
+	public boolean canLaunchOrLandPlanes() {
 		//As long as the carrier isn't dead in the water and it has no inop markers, then it is allowed
 		//to launch planes from the damage model's perspective
 		return (!damageModelType.isDeadInWater(super.currentHP) || !isFlightDeckINOP());

@@ -1,6 +1,6 @@
 package Model.Airfield.PlaneLocations;
 
-import Model.Airfield.AirfieldMoveType;
+import Model.Airfield.AirfieldMove.IAirfieldMove;
 import Model.Plane.Plane;
 import Model.Plane.PlaneList;
 
@@ -39,5 +39,9 @@ public abstract class PlaneLocation {
 		planeList.add(plane);
 	}
 
-	public abstract AirfieldMoveType getMoveType(PlaneLocation location);
+	public void removePlane(Plane plane){
+		planeList.remove(plane);
+	}
+
+	public abstract IAirfieldMove getMoveType(PlaneLocation location);
 }

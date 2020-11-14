@@ -1,6 +1,9 @@
 package Model.Airfield.PlaneLocations;
 
-import Model.Airfield.AirfieldMoveType;
+import Model.Airfield.AirfieldMove.AirfieldMove_Disallow;
+import Model.Airfield.AirfieldMove.AirfieldMove_Launch;
+import Model.Airfield.AirfieldMove.AirfieldMove_Lower;
+import Model.Airfield.AirfieldMove.IAirfieldMove;
 
 /**
  Created on 23 Oct 2020
@@ -15,13 +18,13 @@ public class PlaneLocation_FltDeckReady
 	}
 
 	@Override
-	public AirfieldMoveType getMoveType(PlaneLocation location) {
+	public IAirfieldMove getMoveType(PlaneLocation location) {
 		if (location instanceof PlaneLocation_Hangar || location instanceof PlaneLocation_Servicing){
-			return AirfieldMoveType.Lower;
+			return new AirfieldMove_Lower();
 		} else if (location instanceof PlaneLocation_AirStrike || location instanceof PlaneLocation_SearchTrack || location instanceof PlaneLocation_CAP){
-			return AirfieldMoveType.Launch;
+			return new AirfieldMove_Launch();
 		}
 
-		return AirfieldMoveType.Disallow;
+		return new AirfieldMove_Disallow();
 	}
 }

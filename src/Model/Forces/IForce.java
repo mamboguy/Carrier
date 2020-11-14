@@ -11,5 +11,7 @@ public interface IForce {
     boolean hasAirValue();
 
     Objective getObjective();
+
+    void activate();
 }
 
