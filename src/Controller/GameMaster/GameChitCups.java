@@ -11,12 +11,55 @@ public class GameChitCups {
 
     private ArrayList<IIntelligenceModel> intelligenceChitCup;
     private Die die;
+    private IIntelligenceModel lastDrawnChit;
 
     //<editor-fold defaultstate="collapsed" desc="Define as Singleton">
     private static GameChitCups instance = null;
 
     private GameChitCups() {
 
+        resetChitCup();
+    }
+
+    private ArrayList<IIntelligenceModel> insertChits(IIntelligenceModel model, int count) {
+        ArrayList<IIntelligenceModel> temp = new ArrayList<>();
+
+        for (int i = 0; i < count; i++) {
+            temp.add(model);
+        }
+
+        return temp;
+    }
+
+    public static GameChitCups instance() {
+        if (instance == null) {
+            instance = new GameChitCups();
+        }
+
+        return instance;
+    }
+    //</editor-fold>
+
+    public IIntelligenceModel drawAndRemoveForceChitIntel(){
+        die.rollDie();
+
+        //Draw and remove from the chit cup
+        lastDrawnChit = intelligenceChitCup.get(die.getLastRoll() - 1);
+        intelligenceChitCup.remove(die.getLastRoll() - 1);
+
+        die = new Die(intelligenceChitCup.size());
+
+        return lastDrawnChit;
+    }
+
+    public void returnLastDrawnChit(){
+        if (lastDrawnChit != null){
+            intelligenceChitCup.add(lastDrawnChit);
+            lastDrawnChit = null;
+        }
+    }
+
+    public void resetChitCup() {
         intelligenceChitCup = new ArrayList<>();
 
         //Add 7x Level 1 Carrier
@@ -45,40 +88,5 @@ public class GameChitCups {
         intelligenceChitCup.addAll(insertChits(new DummyModel(), 28));
 
         die = new Die(intelligenceChitCup.size());
-    }
-
-    private ArrayList<IIntelligenceModel> insertChits(IIntelligenceModel model, int count) {
-        ArrayList<IIntelligenceModel> temp = new ArrayList<>();
-
-        for (int i = 0; i < count; i++) {
-            temp.add(model);
-        }
-
-        return temp;
-    }
-
-    public static GameChitCups instance() {
-        if (instance == null) {
-            instance = new GameChitCups();
-        }
-
-        return instance;
-    }
-    //</editor-fold>
-
-    public IIntelligenceModel drawAndRemoveForceChitIntel(){
-        die.rollDie();
-
-        //Draw and remove from the chit cup
-        IIntelligenceModel draw = intelligenceChitCup.get(die.getLastRoll());
-        intelligenceChitCup.remove(die.getLastRoll());
-
-        die = new Die(intelligenceChitCup.size());
-
-        return draw;
-    }
-
-    public void returnDrawnChit(IIntelligenceModel chit){
-        intelligenceChitCup.add(chit);
     }
 }

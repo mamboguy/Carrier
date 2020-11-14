@@ -17,7 +17,7 @@ public class Level2_SmSurface
 		extends Level2{
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
 
 		switch (dieRoll){
 			case 1:

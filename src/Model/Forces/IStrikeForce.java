@@ -9,4 +9,10 @@ public interface IStrikeForce {
     int getEscortSize();
 
     int getAttackForceSize();
+
+	int getAttackForceAttackValue();
+
+	boolean isCoordinated();
+
+	boolean isUnloadingTransport();
 }

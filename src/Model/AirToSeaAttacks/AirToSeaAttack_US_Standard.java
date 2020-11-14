@@ -8,6 +8,15 @@ import Model.Forces.IStrikeForce;
 
 public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
 
+    private boolean isSurpriseCAP;
+    private boolean isSurprisePlanesOnDeck;
+
+    public AirToSeaAttack_US_Standard(IForce shipFleet, IStrikeForce strikeForce, boolean isSurpriseCAP, boolean isSurprisePlanesOnDeck) {
+        super(shipFleet, strikeForce);
+        this.isSurpriseCAP = isSurpriseCAP;
+        this.isSurprisePlanesOnDeck = isSurprisePlanesOnDeck;
+    }
+
     private static final int[][] capStrengthTable = new int[][] {
             //4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
             { 0, 0, 0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1}, // <= -2
@@ -47,47 +56,81 @@ public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
     }
 
     @Override
-    protected void combatVSCAP(IForce shipFleet, IStrikeForce strikeForce) {
+    protected void combatVSCAP() {
 
         //Get the strength of the enemy force's CAP
         int capStrength = lookupCAPStrength(shipFleet.getAirValue());
 
         //Lookup how many losses are the result of that CAP strength
-        int losses = lookupCAPLosses(capStrength, strikeForce);
+        int losses = lookupCAPLosses(capStrength);
+
+        //if the target has no CAP, then all attacks get an additional +1 modifier
+        if (capStrength == 0){
+            allAttacksModifier++;
+        }
 
         askUserForCAPLosses(losses);
     }
 
     @Override
-    protected void aaFireResolution(IForce shipFleet, IStrikeForce strikeForce) {
+    protected void aaFireResolution() {
 
-        //TODO 10/26/2020 - Implement skipping all steps if Surprise - Planes on Deck
+        if (!isSurprisePlanesOnDeck){
+            //Get the index array for the fleet's AA value
+            int aaArrayIndex = super.getAAIndex(shipFleet.getAAValue());
 
-        //Get the index array for the fleet's AA value
-        int aaArrayIndex = super.getAAIndex(shipFleet.getAAValue());
+            //Get the modifiers for the die roll
+            int modifiers = getAADieModifiers();
 
-        //Get the modifiers for the die roll
-        int modifiers = getAADieModifiers(shipFleet, strikeForce);
+            //Roll die and adjust for an array
+            die.rollDie();
+            int dieRoll = die.getBoundedLastRoll_ArrayResult(modifiers, 12, 1);
 
-        //Roll die and adjust for an array
-        die.rollDie();
-        int dieRoll = die.getBoundedLastRoll_ArrayResult(modifiers, 12, 1);
+            //US loses twice the number of steps of result of AA Fire Table
+            int losses = 2 * super.getAALosses(aaArrayIndex, dieRoll);
 
-        //US loses twice the number of steps of result of AA Fire Table
-        int losses = 2 * super.getAALosses(aaArrayIndex, dieRoll);
+            //Let the user determine combat losses
+            askUserForAALosses(losses);
+        } else {
+            informUserOfMessage("SURPRISE!/n/nYou caught the enemy with planes on the flight deck and the enemy are" +
+                                        "unwilling to fire their AA guns right now.");
 
-        //Let the user determine combat losses
-        askUserForAALosses(losses);
+            //Strike will suffer no losses to AA fire since it is prevented
+        }
     }
 
     @Override
     protected void airAttackTableLookup() {
 
+        //Get the forces attack value
+        int strength = strikeForce.getAttackForceAttackValue();
+
+        double modifier = 1.0;
+
+        //Determine the modifier if the strike is coordinated
+        if (strikeForce.isCoordinated()){
+            if (GameSettings.instance().getScenarioPeriod() == ScenarioPeriod.Jan_July_42){
+                modifier = 1.25;
+            } else {
+                modifier = 1.5;
+            }
+        }
+
+        //Get finalized attack strength
+        double attackStrength = modifier * strength;
+
+        //Get the dice and their modifiers added
+        lookupAirAttackDieRollChart(attackStrength);
+    }
+
+    @Override
+    protected int addSpecificModifiers() {
+        return isSurprisePlanesOnDeck ? 5 : 0;
     }
 
     @Override
     protected void targetSelection() {
-
+        // TODO: 2020-11-14 Add popup asking user which dice to apply to which ships
     }
 
     @Override
@@ -96,9 +139,9 @@ public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
     }
 
     /**
-     * Looks up the CAP strength of the enemy fleet and returns the number of STEPS lost to Japanese CAP
+     * Looks up the CAP strength of the enemy fleet and returns the number strength of the Japanese CAP
      * @param enemyAirValue - The air value strength of the enemy fleet
-     * @return - Number of lost steps due to CAP
+     * @return - Size of CAP
      */
     private int lookupCAPStrength(int enemyAirValue){
 
@@ -117,7 +160,12 @@ public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
         return capStrengthTable[enemyAirValue][dieRoll];
     }
 
-    private int lookupCAPLosses(int capStrength, IStrikeForce strikeForce) {
+    /**
+     Determines losses for the strike due to Japanese CAP
+     @param capStrength - The strength of the CAP
+     @return - number of planes to lose
+     */
+    private int lookupCAPLosses(int capStrength) {
 
         int modifiers = 0;
 
@@ -136,16 +184,22 @@ public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
             modifiers -= 1;
         }
 
-        //TODO 10/26/2020 - Implement Surprise mechanic (Surprise - Planes on Deck & Surprise - CAP)
-        // Surprise - Planes on Deck (-2 modifier)
         // Surprise - CAP (-1 modifier)
+        if (isSurpriseCAP){
+            modifiers -= 1;
+        }
+
+        // Surprise - Planes on Deck (-2 modifier)
+        if (isSurprisePlanesOnDeck){
+            modifiers -= 2;
+        }
 
         //Roll die and check with modifiers
         die.rollDie();
         return die.getBoundedLastRoll(modifiers, 11, 1);
     }
 
-    private int getAADieModifiers(IForce shipFleet, IStrikeForce strikeForce) {
+    private int getAADieModifiers() {
         int modifiers = 0;
 
         //All fire receives a -1 modifier if in the first part of 1942
@@ -153,7 +207,10 @@ public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
             modifiers -= 1;
         }
 
-        //TODO 10/26/2020 - Implement "Surprise - CAP" modifier of -2 if active
+        //"Surprise - CAP" modifier of -2 if active
+        if (isSurpriseCAP){
+            modifiers -= 2;
+        }
 
         //Get modifier for strike force size
         if (strikeForce.getAttackForceSize() <= 4){
@@ -173,6 +230,11 @@ public class AirToSeaAttack_US_Standard extends AirToSeaAttack{
     private void askUserForCAPLosses(int losses) {
         //TODO 10/26/2020 - Implement me
         //User will be given a popup that requests they distribute losses to the attacking force
+    }
+
+    private void informUserOfMessage(String message) {
+        // TODO: 2020-11-14 - Implement me
+        //User will be given a popup that informs them of the message (usually surprise)
     }
 
     private void askUserForAALosses(int losses) {

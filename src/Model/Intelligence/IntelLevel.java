@@ -11,6 +11,5 @@ public enum IntelLevel {
 	Level2,
 	Level3,
 	Level4,
-	Dummy,
-	Reroll;
+	Dummy
 }

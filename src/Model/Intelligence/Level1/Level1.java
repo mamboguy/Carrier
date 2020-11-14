@@ -1,5 +1,6 @@
 package Model.Intelligence.Level1;
 
+import Controller.Die;
 import Controller.GameMaster.GameSettings;
 import Model.Forces.IForce;
 import Model.Intelligence.IIntelligenceModel;
@@ -69,5 +70,22 @@ public abstract class Level1
 		}
 
 		return modifier;
+	}
+
+	/**
+	 Determines if the passed roll is a natural 10 or not.  If not natural, it rerolls with new bounds
+	 @return - new die roll to use
+	 @param dieRoll - original die roll
+	 @param wasNaturalTen
+	 */
+	protected int checkIfNaturalTen(int dieRoll, boolean wasNaturalTen, IForce parent) {
+
+		//If the dieRoll was a 10 and it wasn't natural, reroll with an upperbound of 9
+		if (!wasNaturalTen && dieRoll == 10){
+			Die d = new Die(10);
+			dieRoll = d.getBoundedLastRoll(getModifiers(parent), upperChartNumber() - 1, lowerChartNumber());
+		}
+
+		return dieRoll;
 	}
 }

@@ -1,7 +1,7 @@
 package Model.Plane;
 
 import Model.Plane.MovementModels.IPlaneMoveModel;
-import Model.Plane.MovementModels.StandardMovement;
+import Model.Plane.MovementModels.AloftMovement;
 
 /**
  * Created on 04 Aug 2020
@@ -33,7 +33,7 @@ public class Plane {
         this.combatReady = false;
 
         this.planeType = planeType;
-        this.moveModel = new StandardMovement();
+        this.moveModel = new AloftMovement();
     }
 
     public boolean allowCAP() {
@@ -50,5 +50,9 @@ public class Plane {
 
     public boolean isCombatReady() {
         return combatReady;
+    }
+
+    public void setHasMoved() {
+        // TODO: 2020-11-14 Implement me
     }
 }

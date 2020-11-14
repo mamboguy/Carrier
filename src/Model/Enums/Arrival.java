@@ -1,7 +1,6 @@
 package Model.Enums;
 
 import Controller.GameMaster.GameSettings;
-import Model.Intelligence.IIntelligence;
 import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level1.Level1_Surface;
 import Model.Intelligence.Other.DummyModel;
@@ -12,6 +11,11 @@ import Model.Intelligence.Other.Level0Model;
 
  @Author - Mambo */
 
+/**
+ All of the arrival locations based off various scenarios and objectives
+ Handles special cases where arrivals are either a Level 1 Surface fleet or do not
+ arrive if commitment index has been reached
+ */
 public enum Arrival {
 
 	PortMoresby_SingleDay(new int[][]{
@@ -180,11 +184,22 @@ public enum Arrival {
 	private int[][] arrivalLocations;
 	private boolean[][] specialArrival;
 
+	/**
+	 Constructor for the enum
+	 @param arrivalLocations - the hex IDs that the force arrives at
+	 @param specialArrival - Is the force a special case that arrives at L1 Surface or not at all?
+	 */
 	Arrival(int[][] arrivalLocations, boolean[][]specialArrival) {
 		this.arrivalLocations = arrivalLocations;
 		this.specialArrival = specialArrival;
 	}
 
+	/**
+	 Gets the hex ID to arrive at based off two rolls
+	 @param dieroll1 - roll 1 references the row
+	 @param dieroll2 - roll 2 references the column
+	 @return - the hex ID to arrive at
+	 */
 	public int getArrivalHex(int dieroll1, int dieroll2) {
 		int row = adjustDie(dieroll1);
 		int col = adjustDie(dieroll2);
@@ -192,6 +207,12 @@ public enum Arrival {
 		return arrivalLocations[row][col];
 	}
 
+	/**
+	 Gets the intelligence value of the arriving force
+	 @param dieroll1 - same roll as the arrival hex
+	 @param dieroll2 - same roll as the arrival hex
+	 @return - The intelligence model to use (default is Level 0)
+	 */
 	public IIntelligenceModel getArrivalIntelligence(int dieroll1, int dieroll2) {
 		int row = adjustDie(dieroll1);
 		int col = adjustDie(dieroll2);
@@ -212,7 +233,7 @@ public enum Arrival {
 		return intel;
 	}
 
-	protected int adjustDie(int dieroll) {
+	private int adjustDie(int dieroll) {
 		return dieroll--;
 	}
 }

@@ -93,6 +93,10 @@ public class GameSettings {
         System.out.println("Period - " + scenario.getTimeframe() + "(" + lastRoll + ")\n");
     }
 
+    public void resetFactory(){
+        this.japaneseShipFactory = new JapaneseShipFactory(getScenarioPeriod());
+    }
+
     public boolean useOnlyAvailableShipsForTimePeriod() {
         //TODO 10/27/2020 - Implement me
         return true;

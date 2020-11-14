@@ -14,7 +14,7 @@ import Model.Intelligence.Other.DummyModel;
 public class Level1_Transport extends Level1 {
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
 
 		switch (dieRoll){
 			case 1:

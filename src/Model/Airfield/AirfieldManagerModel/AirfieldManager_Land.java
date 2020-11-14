@@ -8,6 +8,12 @@ import Model.Plane.Plane;
 
  @Author - Mambo */
 
+/**
+ Land based airfields have some differing restrictions from carrier based.
+
+ Notable, they can launch and land in the same turn and raising/lowering (taxing on land) does not affect
+ the number of landings or takeoffs
+ */
 public class AirfieldManager_Land extends AirfieldManager{
 
 	public AirfieldManager_Land(IAirfield airfield) {

@@ -5,7 +5,8 @@ package Model.Plane.MovementModels;
 
  @Author - Mambo */
 
-public class AdvancedMoveModel implements IPlaneMoveModel{
+public class AloftModel_AdvancedRules
+		implements IPlaneMoveModel{
 
 	@Override
 	public int getMoveDistance() {

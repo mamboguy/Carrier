@@ -1,9 +1,6 @@
 package Model.Intelligence.Level3.Surface;
 
-import Model.Forces.IForce;
-import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level3.Level3;
-import Model.Intelligence.Other.Level4Model;
 
 /**
  Created on 11 Oct 2020
@@ -19,6 +16,8 @@ public class Level3_MedBB extends Level3 {
 		int clCount = 0;
 		int caCount = 0;
 		int ddCount;
+
+		dieRoll = checkBounds(dieRoll);
 
 		switch (dieRoll){
 

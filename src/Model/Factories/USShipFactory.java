@@ -85,6 +85,7 @@ public class USShipFactory implements IShipFactory{
             USShipIndex.Monssen,
             USShipIndex.Morris,
             USShipIndex.Mustin,
+            USShipIndex.Perkins,
             USShipIndex.Phelps,
             USShipIndex.Porter,
             USShipIndex.Preston,

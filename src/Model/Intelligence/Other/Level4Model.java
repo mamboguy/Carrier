@@ -129,7 +129,7 @@ public class Level4Model implements IIntelligenceModel {
 	}
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
 		return this;
 	}
 

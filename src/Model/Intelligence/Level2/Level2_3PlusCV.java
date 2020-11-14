@@ -1,7 +1,6 @@
 package Model.Intelligence.Level2;
 
 import Model.Forces.IForce;
-import Model.Intelligence.IIntelligence;
 import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.Level1.Level1_Carrier;
 import Model.Intelligence.Level3.Carrier.*;
@@ -15,7 +14,7 @@ public class Level2_3PlusCV
 		extends Level2 {
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
 
 		if (parent.hasAirValue()){
 			int revealedAirStrength = parent.getAirValue();

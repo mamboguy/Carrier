@@ -5,7 +5,6 @@ import Controller.GameMaster.GameSettings;
 import Model.Forces.IForce;
 import Model.Intelligence.IIntelligenceModel;
 import Model.Intelligence.IntelLevel;
-import Model.Intelligence.Other.Level0Model;
 import Model.Intelligence.Other.Level4Model;
 
 /**
@@ -35,7 +34,7 @@ public abstract class Level3 implements IIntelligenceModel {
 	}
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
 
 		//Initialize as impossible to draw that many ships
 		int[] results = new int[] {99,99,99,99,99,99,99,99};
@@ -67,5 +66,15 @@ public abstract class Level3 implements IIntelligenceModel {
 
 	protected boolean hasEnoughShips(int cvCount, int cveCount, int cvlCount, int bbCount, int caCount, int clCount, int ddCount){
 		return GameSettings.instance().getJapaneseShipFactory().hasEnoughShips(cvCount, cveCount, cvlCount, bbCount, caCount, clCount, ddCount);
+	}
+
+	protected int checkBounds(int dieRoll) {
+		if (dieRoll < lowerChartNumber()){
+			return lowerChartNumber();
+		} else if (dieRoll > upperChartNumber()){
+			return upperChartNumber();
+		} else {
+			return dieRoll;
+		}
 	}
 }

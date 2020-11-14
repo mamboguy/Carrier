@@ -15,7 +15,9 @@ public class Level1_Medium
 		extends Level1{
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
+
+		dieRoll = checkIfNaturalTen(dieRoll, wasNaturalTen, parent);
 
 		switch (dieRoll){
 			case 1:

@@ -261,16 +261,29 @@ public class JapaneseShipFactory implements IShipFactory {
 
             }
 
-
+            //Move ship to used
             shipsUsed.add(chosenShip);
             shipsAvailable.remove(chosenShip);
 
+            //Add to list of ships after creation
             list.add(ShipObjectFactory.createJapaneseShip(type, chosenShip));
         }
 
         return list;
     }
 
+    /**
+     Determines if the factory has enough of the ships available based off requirements produced by the Level 3 to
+     Level 4 upgrade
+     @param cvCount - Num of CVs needed
+     @param cveCount - Num of CVEs needed
+     @param cvlCount - Num of CVLs needed
+     @param bbCount - Num of BBs needed
+     @param caCount - Num of CAs needed
+     @param clCount - Num of CLs needed
+     @param ddCount - Num of DDs needed
+     @return
+     */
     public boolean hasEnoughShips(int cvCount, int cveCount, int cvlCount, int bbCount, int caCount, int clCount, int ddCount) {
         return checkSize(carriersAvailable, cvCount) && checkSize(carrierEscortsAvailable, cveCount) &&
                 checkSize(carrierLightsAvailable, cvlCount) && checkSize(battleshipsAvailable, bbCount) &&
@@ -278,6 +291,12 @@ public class JapaneseShipFactory implements IShipFactory {
                 checkSize(destroyersAvailable, ddCount);
     }
 
+    /**
+     Checks a list of available ships and the number needed and determines if enough are available
+     @param shipList - The list of ships that are available
+     @param shipsNeeded - The number of ships needed
+     @return - True if there are enough ships available to meet quota
+     */
     private boolean checkSize(List<JapaneseShipIndex> shipList, int shipsNeeded) {
         return (shipList.size() >= shipsNeeded);
     }

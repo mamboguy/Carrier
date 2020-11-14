@@ -17,7 +17,7 @@ public class Level2_MedTransport
 		extends Level2{
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
 
 		System.out.println("Currently: Level 2 - Medium Transport"  + "   - (" + dieRoll + ")");
 

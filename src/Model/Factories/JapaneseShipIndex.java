@@ -2,6 +2,9 @@ package Model.Factories;
 
 import Model.Enums.ScenarioPeriod;
 
+/**
+ A list of all the Japanese ships available to the factories for handing out
+ */
 public enum JapaneseShipIndex {
 
     //Type, Name, Air Value, AA Value, HP, Bombardment, Avail Jan-Jul42, Avail Aug-Sept42, Avail Oct-Dec42, Avail 43

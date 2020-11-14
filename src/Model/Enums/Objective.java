@@ -5,6 +5,9 @@ package Model.Enums;
 
  @Author - Mambo */
 
+/**
+ The various objectives that the Japanese forces are to attack
+ */
 public enum Objective {
 
 	Moresby("Port Moresby", 2549, 0),

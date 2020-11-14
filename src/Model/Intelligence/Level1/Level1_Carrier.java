@@ -19,7 +19,7 @@ public class Level1_Carrier
 
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
 
 		switch (dieRoll){
 			case 1:
@@ -54,7 +54,7 @@ public class Level1_Carrier
 					}
 				} else {
 					//Target has air value, so keep upgrading intel until a non-10 is found
-					return upgradeIntelligence(dieRoll, parent);
+					return upgradeIntelligence(dieRoll, parent, false);
 				}
 			default:
 				throw new UnsupportedOperationException();

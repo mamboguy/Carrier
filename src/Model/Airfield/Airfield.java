@@ -11,6 +11,9 @@ import Model.Ships.Ship;
 
  @Author - Mambo */
 
+/**
+ General airfields handle all plane movement for standard land based and carrier based airfields
+ */
 public class Airfield implements IAirfield{
 
 	private PlaneLocation hangar;
@@ -35,16 +38,19 @@ public class Airfield implements IAirfield{
 		this.parentShip = parent;
 	}
 
+	@Override
 	public void setManager(IAirfieldManager manager){
 		this.manager = manager;
 	}
 
+	@Override
 	public int getFlightDeckCount() {
 		return flightDeckReady.planeCount() + flightDeckUnready.planeCount();
 	}
 
 	@Override
 	public void moveAircraft(PlaneLocation initial, PlaneLocation desired, Plane plane){
+
 		//Ask the current location to generate the movement type
 		IAirfieldMove moveType = initial.getMoveType(desired);
 
@@ -57,6 +63,9 @@ public class Airfield implements IAirfield{
 			//Move the plane to its new location, removing from the old
 			initial.removePlane(plane);
 			desired.addPlane(plane);
+
+			//Mark the plane as having moved
+			plane.setHasMoved();
 		}
 	}
 

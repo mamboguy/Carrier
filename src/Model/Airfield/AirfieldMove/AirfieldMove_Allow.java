@@ -8,6 +8,9 @@ import Model.Plane.Plane;
 
  @Author - Mambo */
 
+/**
+ A movement of this type is always valid
+ */
 public class AirfieldMove_Allow
 		implements IAirfieldMove {
 

@@ -16,10 +16,16 @@ import Model.Ships.Ship_Type;
  @Author - Mambo */
 
 /**
- Creates objects from the Japanese and US Ship Indexes, adding in the appropriate models for what was called
+ Creates ship objects from the Japanese and US Ship Indexes, adding in the appropriate models too
  */
 public class ShipObjectFactory {
 
+	/**
+	 Japanese ships are all created the same since they all act the same way
+	 @param type - The type of ship to produce
+	 @param chosenShip - The ship that was chosen from the index
+	 @return - The Ship object that has all the needed models for Japanese ships
+	 */
 	public static Ship createJapaneseShip(Ship_Type type, JapaneseShipIndex chosenShip) {
 		Ship japaneseShip = new Ship(type, chosenShip.getAaValue(), chosenShip.getMaxHP(), chosenShip.getBombardmentValue(), chosenShip.getName());
 
@@ -27,13 +33,20 @@ public class ShipObjectFactory {
 		japaneseShip.setAirValue(chosenShip.getAirValue());
 
 		japaneseShip.setDamageModel(new NonCarrierDamageModel(chosenShip.getMaxHP()));
+		japaneseShip.setAirfieldModel(getSurfaceAirfield());
 
 		return japaneseShip;
 	}
 
-	public static Ship createUSCarrier(Ship_Type ship_type, USShipIndex chosenShip){
+	/**
+	 Creates a US Carrier with appropriate models
+	 @param type -
+	 @param chosenShip -
+	 @return
+	 */
+	public static Ship createUSCarrier(Ship_Type type, USShipIndex chosenShip){
 
-		Ship carrier = new Ship(ship_type, chosenShip.getAaValue(), chosenShip.getMaxHP(), chosenShip.getBombardment(), chosenShip.getName());
+		Ship carrier = new Ship(type, chosenShip.getAaValue(), chosenShip.getMaxHP(), chosenShip.getBombardment(), chosenShip.getName());
 
 		//If its a carrier, assign it a carrier model
 		carrier.setDamageModel(new CarrierDamageModel(chosenShip.getMaxHP()));
@@ -45,11 +58,7 @@ public class ShipObjectFactory {
 			((CarrierDamageModel) damageModel).generateType(chosenShip.getName());
 		}
 
-		IAirfield airfieldModel = new Airfield(chosenShip.getMaxHangar());
-		airfieldModel.setManager(new AirfieldManager_Carrier(airfieldModel));
-		airfieldModel.setParentShip(carrier);
-
-		carrier.setAirfieldModel(airfieldModel);
+		carrier.setAirfieldModel(getCarrierAirfield(chosenShip.getMaxHangar(), carrier));
 
 		return carrier;
 	}

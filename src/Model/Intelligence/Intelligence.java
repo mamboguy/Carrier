@@ -41,7 +41,7 @@ public class Intelligence implements IIntelligence{
 
 	@Override
 	public void upgradeIntelligence() {
-		intelModel = intelModel.upgradeIntelligence(getDieRoll(), parent);
+		intelModel = intelModel.upgradeIntelligence(getDieRoll(), parent, isLastRollNaturalTen());
 	}
 
 	@Override

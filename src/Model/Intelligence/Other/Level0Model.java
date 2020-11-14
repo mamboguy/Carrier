@@ -38,7 +38,7 @@ public class Level0Model
 	}
 
 	@Override
-	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent) {
+	public IIntelligenceModel upgradeIntelligence(int dieRoll, IForce parent, boolean wasNaturalTen) {
 		return GameChitCups.instance().drawAndRemoveForceChitIntel();
 	}
 

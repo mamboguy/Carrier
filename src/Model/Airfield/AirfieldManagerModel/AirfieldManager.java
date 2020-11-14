@@ -7,6 +7,9 @@ import Model.Airfield.IAirfield;
 
  @Author - Mambo */
 
+/**
+ Abstract class that takes care of common items between land based and carrier based airfields
+ */
 public abstract class AirfieldManager implements IAirfieldManager{
 
 	protected int launchCount;

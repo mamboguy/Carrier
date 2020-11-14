@@ -7,7 +7,7 @@ package Controller;
 
 public class Die {
 
-	private int lastRoll;
+	protected int lastRoll;
 	private int sides;
 
 	public Die(int sides) {

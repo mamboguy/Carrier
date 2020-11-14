@@ -3,12 +3,8 @@ package Model.Intelligence.Level3.Carrier;
 import Controller.Die;
 import Controller.GameMaster.GameSettings;
 import Model.Forces.IForce;
-import Model.Intelligence.IIntelligence;
 import Model.Intelligence.IIntelligenceModel;
-import Model.Intelligence.Level2.Level2;
-import Model.Intelligence.Level2.Level2_LgSurface;
 import Model.Intelligence.Level3.Level3;
-import Model.Intelligence.Other.Level4Model;
 
 /**
  Created on 11 Oct 2020
@@ -75,11 +71,12 @@ public abstract class Level3_Carrier extends Level3 {
 
 		//1 is a carrier result on all Level 2 surface tables
 		while (dieRoll == 1){
+			die.rollDie();
 			dieRoll = die.getBoundedLastRoll(0, 10, 1);
 		}
 
 		//Level 2 models don't use IForce parameter, so no need to pass
-		screenForce = screenModel.upgradeIntelligence(dieRoll, null);
+		screenForce = screenModel.upgradeIntelligence(dieRoll, null, false);
 		System.out.println("(" + dieRoll + ")" + screenForce.printSettings());
 	}
 
